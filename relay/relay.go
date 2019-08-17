@@ -1,7 +1,14 @@
 package relay
 
+import "fmt"
+
+type ID interface{
+	fmt.Stringer
+}
+
 type Node interface {
 	IsNode()
+	GetID() ID
 }
 
 type PageInfo struct {
