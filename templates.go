@@ -64,7 +64,7 @@ func MustDecode{{.Name}}Cursor(cursor string) *{{.Name}}Cursor {
 
 var {{.Name}}InvalidPagination = errors.New("{{.Name}} invalid pagination parameters")
 
-type {{.Name}}PaginationFunc = func(offset, limit int) (items []{{.Name}}, total *int, err error)
+type {{.Name}}PaginationFunc = func(offset, limit int) (items []*{{.Name}}, total *int, err error)
 
 func New{{.Name}}Page(defaultLimit int, first *int, afterCursor *string, beforeCursor *string, paginate {{.Name}}PaginationFunc) (*{{.Name}}Connection, error) {
 	offset := 0
@@ -120,9 +120,9 @@ func New{{.Name}}Page(defaultLimit int, first *int, afterCursor *string, beforeC
 	if total != nil {
 		if afterCursor != nil {
 			// we don't need to do total - 1 because of out.Offset + 1
-			hasNextPage = (offset + len(items)) < total
+			hasNextPage = (offset + len(items)) < *total
 		} else {
-			hasNextPage = (offset + len(items)) < total - 1
+			hasNextPage = (offset + len(items)) < *total - 1
 		}
 	}
 
