@@ -17,3 +17,7 @@ type PageInfo struct {
 	StartCursor     *string `json:"startCursor"`
 	EndCursor       *string `json:"endCursor"`
 }
+
+func NewString(s string) *string {
+	return &s
+}

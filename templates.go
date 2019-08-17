@@ -103,15 +103,15 @@ func New{{.Name}}Page(defaultLimit int, first *int, afterCursor *string, beforeC
 
 	for i, item := range items {
 		page.Edges = append(page.Edges, {{.Name}}Edge{
-			Cursor: model.Encode{{.Name}}Cursor(New{{.Name}}Cursor(offset+i, item.GetID())),
+			Cursor: Encode{{.Name}}Cursor(New{{.Name}}Cursor(offset+i, item.GetID())),
 			Node:   item,
 		})
 	}
 
 	startCursor, endCursor := (*string)(nil), (*string)(nil)
 	if len(page.Edges) > 0 {
-		startCursor = model.NewString(page.Edges[0].Cursor)
-		endCursor = model.NewString(page.Edges[len(page.Edges)-1].Cursor)
+		startCursor = relay.NewString(page.Edges[0].Cursor)
+		endCursor = relay.NewString(page.Edges[len(page.Edges)-1].Cursor)
 	}
 
 	hasNextPage := false
